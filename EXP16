@@ -1,0 +1,14 @@
+%{
+#include <stdio.h>
+int count = 0;
+%}
+%%
+apple  { count++; }
+.|\n   ;
+%%
+int yywrap() { return 1; }
+int main() {
+    yylex();
+    printf("Frequency of 'apple': %d\n", count);
+    return 0;
+}
