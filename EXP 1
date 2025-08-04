@@ -1,0 +1,18 @@
+%{
+#include <stdio.h>
+%}
+
+%%
+[a-zA-Z]+     { printf("Word: %s\n", yytext); }
+[ \t\n]+      ;  /* skip whitespace */
+.             ;  /* skip everything else */
+%%
+
+int main() {
+    yylex();
+    return 0;
+}
+
+int yywrap() {
+    return 1;
+}
