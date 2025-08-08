@@ -1,0 +1,20 @@
+%{
+#include <stdio.h>
+%}
+
+%%
+//.*                     { /* Ignore single-line comments */ }
+"/*"([^*]|\*+[^*/])*\*+"/"  { /* Ignore multi-line comments */ }
+[ \t\n]+                 { /* Ignore spaces, tabs, and newlines */ }
+[0-9]+                   { printf("Constant: %s\n", yytext); }
+[a-zA-Z_][a-zA-Z0-9_]*    { printf("Identifier: %s\n", yytext); }
+[+\-*/=<>!]+              { printf("Operator: %s\n", yytext); }
+.                         { /* Ignore any other characters */ }
+%%
+
+int yywrap() { return 1; }
+int main() {
+    printf("Enter C code:\n");
+    yylex();
+    return 0;
+}
