@@ -1,0 +1,22 @@
+%{
+#include <stdio.h>
+int char_count=0, word_count=0, line_count=0, in_word=0;
+%}
+
+%%
+\n            { line_count++; in_word=0; char_count++; }
+[ \t]+        { in_word=0; char_count += yyleng; }
+[a-zA-Z0-9]+  { 
+                 if(!in_word) { word_count++; in_word=1; }
+                 char_count += yyleng; 
+              }
+.             { char_count++; }
+%%
+
+int yywrap() { return 1; }
+
+int main() {
+    yylex();
+    printf("Characters: %d\nWords: %d\nLines: %d\n", char_count, word_count, line_count);
+    return 0;
+}
