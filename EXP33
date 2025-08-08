@@ -1,0 +1,13 @@
+#include <stdio.h>
+
+int main() {
+    char exp[100];
+    printf("Enter assignment (e.g. a=b+c): ");
+    scanf("%s", exp);
+
+    printf("\nAssembly Code:\n");
+    printf("MOV R0, %c\n", exp[2]);
+    printf("ADD R0, %c\n", exp[4]);
+    printf("MOV %c, R0\n", exp[0]);
+    return 0;
+}
