@@ -1,0 +1,26 @@
+%{
+#include <stdio.h>
+%}
+
+%%
+<[^>]+>     { printf("HTML Tag: %s\n", yytext); }
+.|\n        { /* ignore other characters */ }
+%%
+
+int yywrap() { return 1; }
+
+int main(int argc, char *argv[]) {
+    if(argc < 2) {
+        printf("Usage: %s <inputfile.html>\n", argv[0]);
+        return 1;
+    }
+    FILE *f = fopen(argv[1], "r");
+    if(!f) {
+        perror("File open error");
+        return 1;
+    }
+    yyin = f;
+    yylex();
+    fclose(f);
+    return 0;
+}
