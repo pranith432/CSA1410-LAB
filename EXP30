@@ -1,0 +1,14 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char exp[100];
+    printf("Enter expression (e.g. a=b+c*d): ");
+    scanf("%s", exp);
+
+    printf("\nThree Address Code:\n");
+    printf("t1 = %c * %c\n", exp[4], exp[6]);
+    printf("t2 = %c + t1\n", exp[2]);
+    printf("%c = t2\n", exp[0]);
+    return 0;
+}
