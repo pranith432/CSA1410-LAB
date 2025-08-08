@@ -1,0 +1,44 @@
+%{
+#include <stdio.h>
+int comment_lines = 0;
+FILE *out;
+%}
+
+%x COMMENT
+
+%%
+"//".*                  { comment_lines++; /* skip single line comment */ }
+"/*"                    { BEGIN(COMMENT); comment_lines++; }
+<COMMENT>"*/"           { BEGIN(INITIAL); }
+<COMMENT>\n             { comment_lines++; }
+<COMMENT>.              { /* skip comment chars */ }
+\n                      { if (yytext[0] != '\n') fputc('\n', out); else fputc('\n', out); }
+[^/\n]+                 { fputs(yytext, out); }
+.                       { fputc(yytext[0], out); }
+%%
+
+int yywrap() { return 1; }
+
+int main(int argc, char *argv[]) {
+    if(argc < 3) {
+        printf("Usage: %s <inputfile.c> <outputfile.c>\n", argv[0]);
+        return 1;
+    }
+    FILE *in = fopen(argv[1], "r");
+    if(!in) {
+        perror("Input file open error");
+        return 1;
+    }
+    out = fopen(argv[2], "w");
+    if(!out) {
+        perror("Output file open error");
+        fclose(in);
+        return 1;
+    }
+    yyin = in;
+    yylex();
+    fclose(in);
+    fclose(out);
+    printf("Number of comment lines removed: %d\n", comment_lines);
+    return 0;
+}
