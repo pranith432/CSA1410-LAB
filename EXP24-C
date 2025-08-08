@@ -1,0 +1,17 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char non_terminal, beta[100], alpha[100];
+    printf("Enter production (E->Ealpha|beta) form:\n");
+    scanf(" %c->%[^|]|%s", &non_terminal, alpha, beta);
+
+    if (alpha[0] == non_terminal) {
+        printf("Grammar is left recursive.\n");
+        printf("%c -> %s%c'\n", non_terminal, beta, non_terminal);
+        printf("%c' -> %s%c' | ε\n", non_terminal, alpha + 1, non_terminal);
+    } else {
+        printf("No left recursion detected.\n");
+    }
+    return 0;
+}
