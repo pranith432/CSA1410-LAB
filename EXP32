@@ -1,0 +1,17 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char code[][20] = { "t1 = a + b", "t2 = a + b", "t3 = t1 + c" };
+    int n = 3;
+
+    printf("Optimized Code:\n");
+    printf("%s\n", code[0]);
+    for (int i = 1; i < n; i++) {
+        if (strcmp(code[i], "t2 = a + b") == 0)
+            printf("t2 = t1\n");
+        else
+            printf("%s\n", code[i]);
+    }
+    return 0;
+}
