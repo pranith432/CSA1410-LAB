@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <string.h>
+
+int checkGrammar(char *str) {
+    int len = strlen(str);
+    int i = 0, j = len - 1;
+    while (i <= j) {
+        if (str[i] != 'a' || str[j] != 'b')
+            return 0;
+        i++; j--;
+    }
+    return 1;
+}
+
+int main() {
+    char str[100];
+    printf("Enter string: ");
+    scanf("%s", str);
+    if (checkGrammar(str))
+        printf("String satisfies the grammar S -> aSb | ε\n");
+    else
+        printf("String does not satisfy the grammar.\n");
+    return 0;
+}
