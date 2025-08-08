@@ -1,0 +1,11 @@
+#include <stdio.h>
+
+int main() {
+    printf("Operator Precedence (PEMDAS):\n");
+    printf("1. Parentheses ()\n");
+    printf("2. Exponentiation ^\n");
+    printf("3. Multiplication * and Division /\n");
+    printf("4. Addition + and Subtraction -\n");
+    printf("\nExample: 3 + 4 * 2 -> Multiplication before Addition\n");
+    return 0;
+}
